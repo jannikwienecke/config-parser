@@ -1,0 +1,17 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.RELATIVE_PATH_PROJECT = exports.FULL_PATH_ANDROID_BUILD = exports.PATH_BUILD = exports.ANDROID_BUILD = exports.FULL_PATH_IOS_INFO = exports.IOS_INFO_FILE = exports.IOS_PATH = exports.FULL_PATH_ANDROID_STRINGS = exports.PATH_VALUES = exports.ANDROID_STRINGS = exports.FULL_PATH_ANDROID_MANIFEST = exports.ANDROID_PATH = exports.ANDROID_MANIFEST = exports.PACKAGE_JSON = void 0;
+exports.PACKAGE_JSON = 'package.json';
+exports.ANDROID_MANIFEST = 'AndroidManifest.xml';
+exports.ANDROID_PATH = 'android/app/src/main/';
+exports.FULL_PATH_ANDROID_MANIFEST = exports.ANDROID_PATH + exports.ANDROID_MANIFEST;
+exports.ANDROID_STRINGS = 'strings.xml';
+exports.PATH_VALUES = exports.ANDROID_PATH + 'res/values/';
+exports.FULL_PATH_ANDROID_STRINGS = exports.PATH_VALUES + exports.ANDROID_STRINGS;
+exports.IOS_PATH = 'ios/app/app/';
+exports.IOS_INFO_FILE = 'info.plist';
+exports.FULL_PATH_IOS_INFO = exports.IOS_PATH + exports.IOS_INFO_FILE;
+exports.ANDROID_BUILD = 'build.gradle';
+exports.PATH_BUILD = 'android/app/';
+exports.FULL_PATH_ANDROID_BUILD = exports.PATH_BUILD + exports.ANDROID_BUILD;
+exports.RELATIVE_PATH_PROJECT = 'scripts/config-parser';
