@@ -73,8 +73,7 @@ const IOS_PLIST_ATTRIBUTES: Attribute[] = [
   {
     path: [],
     key: 'NSUserTrackingUsageDescription',
-    value:
-      'This app uses and shares your data with a third party, to measure the performance and the stability of the app.',
+    value: 'This app shares your crash data to identify problems with the app',
   },
 ];
 
