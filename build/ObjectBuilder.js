@@ -1,6 +1,5 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.ObjectBuilder = void 0;
 var helper_1 = require("./helper");
 var ObjectBuilder = /** @class */ (function () {
     function ObjectBuilder(obj, attribute, index) {

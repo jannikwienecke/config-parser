@@ -1,6 +1,5 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.AttributeManipulationBuldFile = void 0;
 var AttributeManipulationBuldFile = /** @class */ (function () {
     function AttributeManipulationBuldFile() {
         this.manipulate = function (fileString, attributes) {

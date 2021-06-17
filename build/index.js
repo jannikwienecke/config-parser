@@ -1,23 +1,4 @@
 "use strict";
-var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
-    if (k2 === undefined) k2 = k;
-    Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
-}) : (function(o, m, k, k2) {
-    if (k2 === undefined) k2 = k;
-    o[k2] = m[k];
-}));
-var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
-    Object.defineProperty(o, "default", { enumerable: true, value: v });
-}) : function(o, v) {
-    o["default"] = v;
-});
-var __importStar = (this && this.__importStar) || function (mod) {
-    if (mod && mod.__esModule) return mod;
-    var result = {};
-    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
-    __setModuleDefault(result, mod);
-    return result;
-};
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -65,6 +46,13 @@ var __asyncGenerator = (this && this.__asyncGenerator) || function (thisArg, _ar
     function fulfill(value) { resume("next", value); }
     function reject(value) { resume("throw", value); }
     function settle(f, v) { if (f(v), q.shift(), q.length) resume(q[0][0], q[0][1]); }
+};
+var __importStar = (this && this.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (Object.hasOwnProperty.call(mod, k)) result[k] = mod[k];
+    result["default"] = mod;
+    return result;
 };
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
@@ -126,15 +114,10 @@ function parseFilesWithValidParser(packageJsonVersion) {
             return __awaiter(this, void 0, void 0, function () {
                 var path;
                 return __generator(this, function (_a) {
-                    switch (_a.label) {
-                        case 0:
-                            path = relPath + toParse.path;
-                            helper_1.logStartFileProcessing(path);
-                            return [4 /*yield*/, new ConfigParser_1.ConfigParser(path, toParse.parseFunc, toParse.buildFunc, new AttributeManipulation_1.AttributeManipulation()).start(toParse.attributes)];
-                        case 1:
-                            _a.sent();
-                            return [2 /*return*/];
-                    }
+                    path = relPath + toParse.path;
+                    helper_1.logStartFileProcessing(path);
+                    runConfigParser(new ConfigParser_1.ConfigParser(path, toParse.parseFunc, toParse.buildFunc, new AttributeManipulation_1.AttributeManipulation()), toParse.attributes);
+                    return [2 /*return*/];
                 });
             });
         }
@@ -226,46 +209,30 @@ function parseFilesWithValidParser(packageJsonVersion) {
 // NO PARSER CAN READ AND WRITE .gradle files
 // correctly into json
 var parseGradleFileManually = function () { return __awaiter(void 0, void 0, void 0, function () {
-    var path, error_1;
+    var path;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
                 path = relPath + constants_1.FULL_PATH_ANDROID_BUILD;
                 helper_1.logStartFileProcessing(path);
-                _a.label = 1;
+                return [4 /*yield*/, runConfigParser(new ConfigParser_1.ConfigParser(path, undefined, undefined, new AttributeManipulationBuildFile_1.AttributeManipulationBuldFile()), android_build_1.default)];
             case 1:
-                _a.trys.push([1, 3, , 4]);
-                return [4 /*yield*/, new ConfigParser_1.ConfigParser(path, undefined, undefined, new AttributeManipulationBuildFile_1.AttributeManipulationBuldFile()).start(android_build_1.default)];
-            case 2:
                 _a.sent();
-                return [3 /*break*/, 4];
-            case 3:
-                error_1 = _a.sent();
-                console.log('ERROR PARSING>>>', error_1, constants_1.FULL_PATH_ANDROID_BUILD);
-                return [3 /*break*/, 4];
-            case 4: return [2 /*return*/];
+                return [2 /*return*/];
         }
     });
 }); };
 var updateVersionsBuildFile = function (packageJsonVersion) { return __awaiter(void 0, void 0, void 0, function () {
-    var path, error_2;
+    var path;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
                 path = relPath + constants_1.FULL_PATH_ANDROID_BUILD;
                 helper_1.logStartFileProcessing(path);
-                _a.label = 1;
+                return [4 /*yield*/, runConfigParser(new ConfigParser_1.ConfigParser(path, undefined, undefined, new UpdaterBuildVersion_1.UpdaterBuildVersion()), [packageJsonVersion])];
             case 1:
-                _a.trys.push([1, 3, , 4]);
-                return [4 /*yield*/, new ConfigParser_1.ConfigParser(path, undefined, undefined, new UpdaterBuildVersion_1.UpdaterBuildVersion()).start([packageJsonVersion])];
-            case 2:
                 _a.sent();
-                return [3 /*break*/, 4];
-            case 3:
-                error_2 = _a.sent();
-                console.log('ERROR PARSING>>>', error_2, constants_1.FULL_PATH_ANDROID_BUILD);
-                return [3 /*break*/, 4];
-            case 4: return [2 /*return*/];
+                return [2 /*return*/];
         }
     });
 }); };
@@ -306,6 +273,26 @@ var validate = function () { return __awaiter(void 0, void 0, void 0, function (
         }
     });
 }); };
+var runConfigParser = function (configParser, attributes) { return __awaiter(void 0, void 0, void 0, function () {
+    var error_1;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0:
+                _a.trys.push([0, 2, , 3]);
+                return [4 /*yield*/, configParser.start(attributes)];
+            case 1:
+                _a.sent();
+                return [3 /*break*/, 3];
+            case 2:
+                error_1 = _a.sent();
+                console.log('[Config Parser]: ', error_1);
+                errorFiles.push(configParser.plattformPath);
+                return [3 /*break*/, 3];
+            case 3: return [2 /*return*/];
+        }
+    });
+}); };
+var errorFiles = [];
 var run = function () { return __awaiter(void 0, void 0, void 0, function () {
     var shouldRunValidation;
     return __generator(this, function (_a) {
@@ -313,8 +300,14 @@ var run = function () { return __awaiter(void 0, void 0, void 0, function () {
             case 0: return [4 /*yield*/, validate()];
             case 1:
                 shouldRunValidation = _a.sent();
-                if (shouldRunValidation) {
-                    runPostSyncHook();
+                if (!shouldRunValidation) return [3 /*break*/, 3];
+                return [4 /*yield*/, runPostSyncHook()];
+            case 2:
+                _a.sent();
+                _a.label = 3;
+            case 3:
+                if (errorFiles.length > 0) {
+                    console.log("\n 🚨 WARNING: SOME ERRORS OCCURED. The following files couln't be parsed! Please check the logs above for more information. \n", errorFiles.join('\n '));
                 }
                 return [2 /*return*/];
         }

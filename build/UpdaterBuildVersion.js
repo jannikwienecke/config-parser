@@ -1,6 +1,5 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.UpdaterBuildVersion = void 0;
 var constants_1 = require("./constants");
 var helper_1 = require("./helper");
 var PREFIX_VERSION_CODE_BUILD = 'versionCode ';

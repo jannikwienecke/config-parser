@@ -42,19 +42,39 @@ const IOS_PLIST_ATTRIBUTES: Attribute[] = [
     path: [],
     key: 'NSLocationAlwaysAndWhenInUseUsageDescription',
     value:
-      'The App accesses location information while running in the background',
+      'The App access location information in the background, in order to give you helpful alerts on your trip.',
+  },
+  {
+    path: [],
+    key: 'NSLocationAlwaysAndWhenInUseUsageDescription',
+    value:
+      'The app uses your location to enhance your user experience by alerting you in helpful situations and automates tasks for you.',
   },
 
   {
     path: [],
     key: 'NSMotionUsageDescription',
-    value: 'This app needs to be able to access your motion use',
+    value:
+      'This app accesses your motion data to identify your current type of movement',
+  },
+
+  {
+    path: [],
+    key: 'NSCameraUsageDescription',
+    value:
+      'Take images and videos of your transport goods to capture their conditions',
   },
 
   {
     path: [],
     key: 'UIBackgroundModes',
     value: ['fetch', 'location', 'remote-notification', 'processing'],
+  },
+  {
+    path: [],
+    key: 'NSUserTrackingUsageDescription',
+    value:
+      'This app uses and shares your data with a third party, to measure the performance and the stability of the app.',
   },
 ];
 

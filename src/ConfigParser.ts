@@ -7,11 +7,21 @@ import {
 import * as fs from 'fs';
 import { logWriteToFile } from './helper';
 
-export class ConfigParser<ObjectToManipulateType, AttributeType> {
+export interface ConfigParserInterface<AttributeType> {
+  plattformPath: string;
+  start: (attributes: AttributeType[]) => Promise<void>;
+  readfile: () => Promise<void>;
+  writeFile: () => Promise<void>;
+  parseStringToFileObj: (string: string) => Promise<void>;
+  parseFileObjToFileString: (string: any) => Promise<void>;
+}
+
+export class ConfigParser<ObjectToManipulateType, AttributeType>
+  implements ConfigParserInterface<AttributeType> {
   private fileObj: any = {};
 
   constructor(
-    private plattformPath: string,
+    public plattformPath: string,
     private parse: ParseFunction,
     private build: BuildFunction,
     private AttributeManipulation: AttributeManipulationInterface<

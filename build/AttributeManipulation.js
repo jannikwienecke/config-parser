@@ -1,6 +1,5 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.AttributeManipulation = void 0;
 var ObjectBuilder_1 = require("./ObjectBuilder");
 var AttributeManipulation = /** @class */ (function () {
     function AttributeManipulation() {

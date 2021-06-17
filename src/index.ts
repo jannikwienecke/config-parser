@@ -8,7 +8,7 @@ import ANDROID_BUILD_NEW_LINES from './config/android-build';
 import ANDROID_MANIFEST_ATTRIBUTES from './config/android-manifest';
 import ANDROID_STRINGS_ATTRIBUTES from './config/android-strings';
 import IOS_PLIST_ATTRIBUTES from './config/ios-plist';
-import { ConfigParser } from './ConfigParser';
+import { ConfigParser, ConfigParserInterface } from './ConfigParser';
 import {
   FULL_PATH_ANDROID_BUILD,
   FULL_PATH_ANDROID_MANIFEST,
@@ -72,17 +72,20 @@ async function* parseFilesWithValidParser(packageJsonVersion: string) {
     const path = relPath + toParse.path;
     logStartFileProcessing(path);
 
-    await new ConfigParser(
-      path,
-      toParse.parseFunc,
-      toParse.buildFunc,
-      new AttributeManipulation(),
-    ).start(toParse.attributes);
+    runConfigParser(
+      new ConfigParser(
+        path,
+        toParse.parseFunc,
+        toParse.buildFunc,
+        new AttributeManipulation(),
+      ),
+      toParse.attributes,
+    );
   }
 
   const addVersionAttributesToPlist = () => {
     const versionKeys = ['CFBundleShortVersionString', 'CFBundleVersion'];
-    versionKeys.forEach((key) => {
+    versionKeys.forEach(key => {
       const iosVersionAttribute: Attribute = {
         path: [],
         key,
@@ -138,32 +141,31 @@ async function* parseFilesWithValidParser(packageJsonVersion: string) {
 const parseGradleFileManually = async () => {
   const path = relPath + FULL_PATH_ANDROID_BUILD;
   logStartFileProcessing(path);
-  try {
-    await new ConfigParser<string, BuildLines>(
+
+  await runConfigParser(
+    new ConfigParser<string, BuildLines>(
       path,
       undefined,
       undefined,
       new AttributeManipulationBuldFile(),
-    ).start(ANDROID_BUILD_NEW_LINES);
-  } catch (error) {
-    console.log('ERROR PARSING>>>', error, FULL_PATH_ANDROID_BUILD);
-  }
+    ),
+    ANDROID_BUILD_NEW_LINES,
+  );
 };
 
 const updateVersionsBuildFile = async (packageJsonVersion: string) => {
   const path = relPath + FULL_PATH_ANDROID_BUILD;
   logStartFileProcessing(path);
 
-  try {
-    await new ConfigParser<string, string>(
+  await runConfigParser(
+    new ConfigParser<string, string>(
       path,
       undefined,
       undefined,
       new UpdaterBuildVersion(),
-    ).start([packageJsonVersion]);
-  } catch (error) {
-    console.log('ERROR PARSING>>>', error, FULL_PATH_ANDROID_BUILD);
-  }
+    ),
+    [packageJsonVersion],
+  );
 };
 
 async function runPostSyncHook() {
@@ -186,10 +188,29 @@ const validate = async () => {
   });
 };
 
+const runConfigParser = async <T>(
+  configParser: ConfigParserInterface<T>,
+  attributes: T[],
+) => {
+  try {
+    await configParser.start(attributes);
+  } catch (error) {
+    console.log('[Config Parser]: ', error);
+    errorFiles.push(configParser.plattformPath);
+  }
+};
+
+let errorFiles: string[] = [];
 const run = async () => {
   const shouldRunValidation = await validate();
   if (shouldRunValidation) {
-    runPostSyncHook();
+    await runPostSyncHook();
+  }
+  if (errorFiles.length > 0) {
+    console.log(
+      "\n 🚨 WARNING: SOME ERRORS OCCURED. The following files couln't be parsed! Please check the logs above for more information. \n",
+      errorFiles.join('\n '),
+    );
   }
 };
 

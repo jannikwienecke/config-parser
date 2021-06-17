@@ -1,6 +1,5 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.RELATIVE_PATH_PROJECT = exports.FULL_PATH_ANDROID_BUILD = exports.PATH_BUILD = exports.ANDROID_BUILD = exports.FULL_PATH_IOS_INFO = exports.IOS_INFO_FILE = exports.IOS_PATH = exports.FULL_PATH_ANDROID_STRINGS = exports.PATH_VALUES = exports.ANDROID_STRINGS = exports.FULL_PATH_ANDROID_MANIFEST = exports.ANDROID_PATH = exports.ANDROID_MANIFEST = exports.PACKAGE_JSON = void 0;
 exports.PACKAGE_JSON = 'package.json';
 exports.ANDROID_MANIFEST = 'AndroidManifest.xml';
 exports.ANDROID_PATH = 'android/app/src/main/';

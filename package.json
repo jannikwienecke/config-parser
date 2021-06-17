@@ -8,8 +8,7 @@
     "start:dev": "nodemon",
     "start": "npm run build && node build/index.js",
     "test": "jest",
-    "test:dev": "jest --watchAll",
-    "postinstall": "npm run build"
+    "test:dev": "jest --watchAll"
   },
   "husky": {
     "hooks": {
@@ -23,6 +22,7 @@
     "@types/inquirer": "^7.3.1",
     "@types/jest": "^26.0.14",
     "@types/node": "^12.7.2",
+    "@types/plist": "^3.0.2",
     "@types/xml2js": "^0.4.8",
     "@typescript-eslint/eslint-plugin": "^2.21.0",
     "@typescript-eslint/parser": "^2.21.0",
@@ -41,6 +41,8 @@
   "dependencies": {
     "eslint-plugin-jest": "^24.1.0",
     "jest": "^26.5.3",
+    "plist": "^3.0.2",
+    "replace-in-file": "^6.2.0",
     "ts-jest": "^26.4.1"
   }
 }
